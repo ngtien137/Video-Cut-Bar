@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.luza.videocutbar.VideoCutBar
+        android:id="@+id/videoCutBar"
+        android:background="#000"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:vcb_video_bar_height="60dp"
+        app:vcb_number_image_preview="8"
+
+        app:vcb_thumb_width="12dp"
+        app:vcb_thumb_touch_extra_area="10dp"
+        app:vcb_thumb_left="@drawable/ic_thumb_left"
+        app:vcb_thumb_right="@drawable/ic_thumb_right"
+
+        app:vcb_indicator_size="6dp"
+        app:vcb_indicator_corners="3dp"
+        app:vcb_indicator_color="#fff"
+        app:vcb_indicator_padding_bottom="4dp"
+
+        app:vcb_indicator_text_size="14sp"
+        app:vcb_indicator_text_color="#fff"
+        app:vcb_indicator_text_padding_bottom="4dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+    <LinearLayout
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/videoCutBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <Button
+            android:onClick="onClick"
+            android:textAllCaps="false"
+            android:text="@string/choose_video"
+            android:id="@+id/btnChooseAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

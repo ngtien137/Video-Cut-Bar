@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">VideoCutBarDemo</string>
+    <string name="choose_video">Choose Video</string>
+</resources>
