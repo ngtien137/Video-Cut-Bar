@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">VideoCutBarDemo</string>
     <string name="choose_video">Choose Video</string>
+    <string name="min">Min</string>
+    <string name="set_range">Set Selectd Range</string>
+    <string name="set_progress">Set Progress</string>
+    <string name="progress">Progress</string>
+    <string name="max">Max</string>
 </resources>

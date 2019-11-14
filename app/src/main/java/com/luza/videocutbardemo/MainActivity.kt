@@ -15,6 +15,7 @@ import com.luza.videocutbar.VideoCutBar
 import com.luza.videocutbar.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         const val REQUEST_PERMISSION = 100
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,6 +38,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onLoadingComplete() {
                 Toast.makeText(this@MainActivity, "Video Loaded", Toast.LENGTH_SHORT).show()
+            }
+        }
+        videoCutBar.rangeChangeListener = object : VideoCutBar.OnCutRangeChangeListener{
+            override fun onRangeChanging(minValue: Long, maxValue: Long, isInteract: Boolean) {
+                tvStatus.text = "Status: Changing"
+                tvMin.text = "Min: $minValue"
+                tvMax.text = "Max: $maxValue"
+            }
+
+            override fun onRangeChanged(minValue: Long, maxValue: Long, isInteract: Boolean) {
+                tvStatus.text = "Status: Changed"
             }
         }
     }
@@ -52,7 +65,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         startActivityForResult(intent, REQUEST_MUSIC)
                     },{finish()}
                 )
-
+            }
+            R.id.btnRange -> {
+                if (videoCutBar.duration==0L){
+                    Toast.makeText(this, "Please choose video!", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                try{
+                    val min = edtMin.text.toString().toLong()
+                    val max = edtMax.text.toString().toLong()
+                    videoCutBar.setSelectedRange(min,max)
+                }catch (e:Exception){
+                    Toast.makeText(this, "Wrong range", Toast.LENGTH_SHORT).show()
+                }
+            }
+            R.id.btnProgress -> {
+                if (videoCutBar.duration==0L){
+                    Toast.makeText(this, "Please choose video!", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                try{
+                    val progress = edtProgress.text.toString().toLong()
+                    videoCutBar.setProgress(progress)
+                }catch (e:Exception){
+                    Toast.makeText(this, "Wrong progress", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
