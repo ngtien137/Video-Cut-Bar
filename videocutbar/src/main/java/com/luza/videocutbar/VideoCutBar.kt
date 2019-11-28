@@ -20,6 +20,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import androidx.core.graphics.drawable.toBitmap
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
 
 class VideoCutBar @JvmOverloads constructor(
@@ -238,13 +239,15 @@ class VideoCutBar @JvmOverloads constructor(
             rectThumbLeft.bottom.toFloat() - borderPaint.strokeWidth / 2
         )
 
-        val rectThumbProgressLeft = rectPadding.left + thumbWidth - thumbProgressWidth / 2
-        rectThumbProgress.set(
-            rectThumbProgressLeft,
-            rectThumbLeft.centerY() - thumbProgressHeight / 2f,
-            rectThumbProgressLeft + thumbProgressWidth,
-            rectThumbLeft.centerY() + thumbProgressHeight / 2f
-        )
+        if(showThumbProgress) {
+            val rectThumbProgressLeft = rectPadding.left + thumbWidth - thumbProgressWidth / 2
+            rectThumbProgress.set(
+                rectThumbProgressLeft,
+                rectThumbLeft.centerY() - thumbProgressHeight / 2f,
+                rectThumbProgressLeft + thumbProgressWidth,
+                rectThumbLeft.centerY() + thumbProgressHeight / 2f
+            )
+        }
 
         initListRectImage()
         isInitView = true
@@ -468,13 +471,21 @@ class VideoCutBar @JvmOverloads constructor(
             val maxLeft = (rectThumbRight.left - thumbWidth).toFloat()
             adjustMove(thumbRect, disMove, minLeft, maxLeft - minBetween)
             minProgress = thumbRect.right.toFloat().ToProgress()
+            if (minProgress>maxProgress-2000)
+                minProgress = maxProgress-2000
         } else if (thumbIndex == 1) {
             thumbRect = rectThumbRight
             val minLeft = rectThumbLeft.right.toFloat()
             val maxLeft = rectPadding.right - thumbWidth
             adjustMove(thumbRect, disMove, minLeft + minBetween, maxLeft)
             maxProgress = thumbRect.left.toFloat().ToProgress()
+            if (maxProgress<minProgress+2000)
+                maxProgress = minProgress+2000
         }
+        if (minProgress<0)
+            minProgress = 0
+        if (maxProgress>duration)
+            maxProgress = duration
         //Log.e("Min: $minProgress, Max: $maxProgress, Duration: $duration")
         rangeChangeListener?.onRangeChanging(minProgress, maxProgress, isInteract)
         invalidate()
@@ -482,9 +493,9 @@ class VideoCutBar @JvmOverloads constructor(
 
     private fun adjustMove(thumbRect: Rect, disMove: Int, minLeft: Float, maxLeft: Float) {
         if (thumbRect.left + disMove < minLeft)
-            thumbRect.left = minLeft.toInt()
+            thumbRect.left = minLeft.roundToInt()
         else if (thumbRect.left + disMove > maxLeft)
-            thumbRect.left = maxLeft.toInt()
+            thumbRect.left = maxLeft.roundToInt()
         else
             thumbRect.left += disMove
         thumbRect.right = thumbRect.left + thumbWidth

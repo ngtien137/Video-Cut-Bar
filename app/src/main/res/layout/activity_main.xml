@@ -54,6 +54,7 @@
         app:vcb_video_bar_border="2dp"
         app:vcb_video_bar_border_color="#4fff"
 
+        app:vcb_show_thumb_cut="true"
         app:vcb_thumb_width="12dp"
         app:vcb_thumb_touch_extra_area="10dp"
         app:vcb_thumb_cut_min_progress="2000"
@@ -65,6 +66,7 @@
         app:vcb_progress_thumb_corners="1dp"
         app:vcb_progress_thumb_height="72dp"
         app:vcb_progress_thumb_width="2dp"
+        app:vcb_show_thumb_progress="true"
 
         app:vcb_indicator_size="6dp"
         app:vcb_indicator_corners="3dp"
