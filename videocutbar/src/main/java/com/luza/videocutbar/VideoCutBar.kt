@@ -191,12 +191,12 @@ class VideoCutBar @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        viewWidth = MeasureSpec.getSize(widthMeasureSpec)
+        viewHeight = MeasureSpec.getSize(heightMeasureSpec)
         rectPadding.left = 0f + paddingLeft
         rectPadding.top = 0f + paddingTop
         rectPadding.bottom = (viewHeight - paddingBottom).toFloat()
         rectPadding.right = (viewWidth - paddingRight).toFloat()
-        viewWidth = MeasureSpec.getSize(widthMeasureSpec)
-        viewHeight = MeasureSpec.getSize(heightMeasureSpec)
         realHeight = (viewHeight - paddingTop - paddingBottom)
         realWidth = (viewWidth - paddingLeft - paddingRight)
         videoBarWidth = realWidth - thumbWidth * 2

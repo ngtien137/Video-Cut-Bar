@@ -49,8 +49,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:vcb_video_bar_height="60dp"
-        app:vcb_number_image_preview="8"
-        app:vcb_show_temp_image="true"
+        app:vcb_number_image_preview="200"
+        app:vcb_show_temp_image="false"
         app:vcb_video_bar_border="2dp"
         app:vcb_video_bar_border_color="#4fff"
 
